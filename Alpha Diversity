@@ -1,0 +1,49 @@
+library(vegan)
+library(readxl)
+data=data.frame(read_excel("all10_samples.xlsx"),row.names = 1)
+data=data[,6:10]
+
+mydata=t(data)
+
+shannon=diversity(mydata,index="shannon")
+shannon
+
+shannon_df=data.frame(
+  Sample=names(shannon),
+  value=shannon,
+  Metric="Shannon")
+
+library(ggplot2)
+shannon=ggplot(shannon_df, aes(x = Sample, y = Diversity)) +
+  geom_point(size  = 4,
+             color = "steelblue") +
+  theme_classic()+
+  labs(title="Shannon Diversity Index")
+
+
+richness <- specnumber(t(data))
+richness_df=data.frame(
+  Sample=names(richness),
+  value=richness,
+  Metric="Richness")
+
+combined_df=rbind(shannon_df,richness_df)
+
+Richness=ggplot(richness_df, aes(x = Samples, y = Richness)) +
+  geom_point(size  = 4,
+             color = "steelblue") +
+  theme_classic()+
+  labs(title="Richness")
+
+??ggplot2
+library(ggplot2)
+comb=ggplot(combined_df, aes(x = Sample, y = value,color= Metric)) +
+  geom_point(size  = 2)+
+  theme_classic()+
+  labs(title="Alpha Diversity Matrix")+
+  theme(axis.title=element_text(face="bold"))+
+  facet_wrap(~Metric,scales="free_y")+
+  theme(axis.text.x=element_text(angle=45,size=12))
+png("Alpha diversity.png",width = 9,height=8,units="in",res=300)
+print(comb)
+dev.off()
