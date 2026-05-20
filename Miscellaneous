@@ -1,0 +1,11 @@
+Krona Visualisation
+ktImportTaxonomy -t 2 -m 6 -o control_krona_ab.html control_sample*.bracken.txt
+
+Alpha Diversity
+alpha_diversity.py -f SRR11749271_bracken.txt -a Sh > shannon.txt
+
+Beta Diversity
+beta_diversity.py -i *.bracken.txt --type bracken > beta.txt
+
+Combine bracken files
+ combine_bracken_outputs.py --files *.bracken.txt -o all_brake
