@@ -1,3 +1,11 @@
+krona instllation 
+wget https://github.com/marbl/Krona/releases/download/v2.8.1/KronaTools-2.8.1.tar
+tar -xf KronaTools-2.8.1.tar
+cd /home/linux123/miniconda3/KronaTools-2.8.1/taxonomy
+tar -xzvf taxdump.tar.gz
+cd /home/linux123/miniconda3/KronaTools-2.8.1
+./updateTaxonomy.sh --only-build
+
 Krona Visualisation
 ktImportTaxonomy -t 2 -m 6 -o control_krona_ab.html control_sample*.bracken.txt
 
